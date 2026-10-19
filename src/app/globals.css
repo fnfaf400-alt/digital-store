@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink-950 text-paper font-cairo antialiased;
+  background-image:
+    radial-gradient(1200px 500px at 100% -10%, rgba(212, 175, 122, 0.12), transparent),
+    radial-gradient(800px 400px at -10% 20%, rgba(90, 130, 200, 0.12), transparent);
+}
+
+a {
+  @apply transition-colors;
+}
+
+input,
+textarea,
+select {
+  @apply w-full rounded-xl border border-white/10 bg-ink-900 px-4 py-3 text-paper outline-none ring-gold-500/0 transition focus:border-gold-500/60 focus:ring-2 focus:ring-gold-500/20;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold transition;
+}
+
+.btn-gold {
+  @apply btn bg-gold-500 text-ink-950 hover:bg-gold-400;
+}
+
+.btn-ghost {
+  @apply btn border border-white/15 bg-white/5 hover:bg-white/10;
+}
+
+.card {
+  @apply rounded-3xl border border-white/10 bg-ink-900/70 shadow-glow backdrop-blur;
+}
