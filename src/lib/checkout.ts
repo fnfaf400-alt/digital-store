@@ -27,4 +27,6 @@ export const productSchema = z.object({
 
 export const checkoutSchema = z.object({
   productId: z.string().min(1),
+  couponCode: z.string().trim().optional(),
 });
+

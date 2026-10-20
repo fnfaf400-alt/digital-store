@@ -9,6 +9,15 @@ services:
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@digital-store.local}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Admin123!}
+      MOYASAR_SECRET_KEY: ${MOYASAR_SECRET_KEY:-}
+      NEXT_PUBLIC_MOYASAR_PUBLISHABLE_KEY: ${NEXT_PUBLIC_MOYASAR_PUBLISHABLE_KEY:-}
+      ALLOW_SIMULATED_PAYMENTS: ${ALLOW_SIMULATED_PAYMENTS:-false}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      EMAIL_FROM: ${EMAIL_FROM:-}
     volumes:
       - store-data:/app/prisma
 

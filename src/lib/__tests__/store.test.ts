@@ -3,6 +3,7 @@ import { formatMoney } from "../money";
 import { checkoutSchema, productSchema, registerSchema } from "../checkout";
 import { createDownloadToken, createLicenseKey, slugify } from "../slug";
 import { hashPassword, verifyPassword } from "../password";
+import { buildCallbackUrl, extractOrderId, isCurrencyValid, isPaymentAmountValid } from "../payment";
 
 describe("money", () => {
   it("formats SAR from cents", () => {
@@ -66,5 +67,36 @@ describe("passwords", () => {
     expect(hash).not.toBe("Admin123!");
     await expect(verifyPassword("Admin123!", hash)).resolves.toBe(true);
     await expect(verifyPassword("wrong", hash)).resolves.toBe(false);
+  });
+});
+
+describe("payment", () => {
+  it("builds the moyasar callback url from the app url", () => {
+    expect(buildCallbackUrl("https://store.example.com")).toBe(
+      "https://store.example.com/api/payments/moyasar/callback",
+    );
+    expect(buildCallbackUrl("https://store.example.com/")).toBe(
+      "https://store.example.com/api/payments/moyasar/callback",
+    );
+  });
+
+  it("rejects a payment whose amount does not match the order", () => {
+    expect(isPaymentAmountValid(7900, 7900)).toBe(true);
+    expect(isPaymentAmountValid(7900, 5900)).toBe(false);
+    expect(isPaymentAmountValid(1, 7900)).toBe(false);
+    expect(isPaymentAmountValid(undefined, 7900)).toBe(false);
+  });
+
+  it("accepts a matching currency and rejects a different one", () => {
+    expect(isCurrencyValid("SAR", "SAR")).toBe(true);
+    expect(isCurrencyValid("USD", "SAR")).toBe(false);
+    expect(isCurrencyValid(undefined, "SAR")).toBe(true);
+  });
+
+  it("extracts the order id from payment metadata", () => {
+    expect(extractOrderId({ orderId: "abc123" })).toBe("abc123");
+    expect(extractOrderId({})).toBeNull();
+    expect(extractOrderId(undefined)).toBeNull();
+    expect(extractOrderId({ orderId: 42 })).toBeNull();
   });
 });

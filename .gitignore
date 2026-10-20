@@ -10,3 +10,10 @@ prisma/dev.db-journal
 coverage
 .DS_Store
 Thumbs.db
+dev-server.log
+tsconfig.tsbuildinfo
+
+node_modules
+.next
+.env
+test-check.js
