@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -103,3 +103,7 @@ model Setting {
   name    String @default("ديجيتال ستور")
   tagline String @default("منتجات رقمية تُسلَّم فوراً")
 }
+
+
+
+
